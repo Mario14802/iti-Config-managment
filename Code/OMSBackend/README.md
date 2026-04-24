@@ -110,6 +110,13 @@ npx nodemon app.js
 ```
 Navigate to `http://localhost:5000/` in your browser to view a simple HTML tester for the Authentication flow!
 
+### 6. Swagger API Documentation
+After starting the server, open:
+```text
+http://localhost:3000/api-docs
+```
+This serves an interactive Swagger UI for all available API routes.
+
 ---
 
 ## 🔗 API Endpoints Overview
