@@ -1,49 +1,58 @@
 require('dns').setDefaultResultOrder('ipv4first');
 require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
+
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorMiddleware');
 const swaggerSpec = require('./docs/swagger');
 
 const app = express();
-const port = process.env.PORT || 3001;
 
-// Connect to MongoDB
-connectDB();
+/* -------------------- PORT FIX (IMPORTANT) -------------------- */
+const PORT = process.env.PORT || 3000;
 
-// Import routes
+/* -------------------- DB CONNECTION (SAFE) -------------------- */
+connectDB()
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err));
+
+/* -------------------- MIDDLEWARE -------------------- */
+app.use(helmet({ contentSecurityPolicy: false }));
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public'));
+
+/* -------------------- SWAGGER -------------------- */
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+/* -------------------- ROUTES -------------------- */
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const authRoutes = require('./routes/authRoutes');
 
-// Middleware
-// Disable CSP in helmet so our simple index.html inline scripts can run
-app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors());
-app.use(express.json());
-app.use(express.static('public'));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-// Mount routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/carts', cartRoutes);
 app.use('/api/orders', orderRoutes);
 
-// Simple test route
+/* -------------------- TEST ROUTE -------------------- */
 app.get('/', (req, res) => {
-    res.status(200).json({ message: 'Welcome to Mobilestore API!' });
+    res.status(200).json({
+        message: 'Welcome to Mobilestore API!'
+    });
 });
 
-// Centralized Error Handling Middleware
+/* -------------------- ERROR HANDLER -------------------- */
 app.use(errorHandler);
 
-app.listen(port, () => {
-    console.log(`app running on port ${port}`);
+/* -------------------- START SERVER (RAILWAY FIX) -------------------- */
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
 });
