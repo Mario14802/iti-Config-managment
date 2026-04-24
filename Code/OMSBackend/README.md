@@ -122,7 +122,9 @@ This backend is ready for Railway with `railway.json` and `npm start`.
 
 1. Push your code to GitHub.
 2. In Railway, create a new project from your GitHub repo.
-3. Set the **Root Directory** to `Code/OMSBackend`.
+3. Use one of these options:
+   - Preferred: set **Root Directory** to `Code/OMSBackend`
+   - Or keep repo root; this repo now includes a root `railway.json` that runs from `Code/OMSBackend`
 4. Add environment variables in Railway:
    - `MONGO_URI`
    - `JWT_SECRET`
