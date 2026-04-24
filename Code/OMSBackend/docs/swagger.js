@@ -1,5 +1,10 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 
+const swaggerServerUrl =
+    process.env.SWAGGER_SERVER_URL ||
+    (process.env.RAILWAY_STATIC_URL ? `https://${process.env.RAILWAY_STATIC_URL}` : null) ||
+    'http://localhost:3000';
+
 const options = {
     definition: {
         openapi: '3.0.0',
@@ -10,8 +15,8 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000',
-                description: 'Local development server'
+                url: swaggerServerUrl,
+                description: 'Configured API server'
             }
         ],
         components: {

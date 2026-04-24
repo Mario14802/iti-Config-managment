@@ -117,6 +117,24 @@ http://localhost:3000/api-docs
 ```
 This serves an interactive Swagger UI for all available API routes.
 
+### 7. Deploy on Railway
+This backend is ready for Railway with `railway.json` and `npm start`.
+
+1. Push your code to GitHub.
+2. In Railway, create a new project from your GitHub repo.
+3. Set the **Root Directory** to `Code/OMSBackend`.
+4. Add environment variables in Railway:
+   - `MONGO_URI`
+   - `JWT_SECRET`
+   - `PORT` (optional; Railway usually injects this automatically)
+   - `SWAGGER_SERVER_URL` (optional, recommended: your Railway public URL)
+5. Deploy. Railway will run `npm start`.
+
+After deployment, your docs endpoint will be:
+```text
+https://<your-railway-domain>/api-docs
+```
+
 ---
 
 ## 🔗 API Endpoints Overview
