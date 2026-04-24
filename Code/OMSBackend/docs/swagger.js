@@ -2,8 +2,10 @@ const swaggerJsdoc = require('swagger-jsdoc');
 
 const swaggerServerUrl =
     process.env.SWAGGER_SERVER_URL ||
-    (process.env.RAILWAY_STATIC_URL ? `https://${process.env.RAILWAY_STATIC_URL}` : null) ||
-    'http://localhost:3000';
+        process.env.RAILWAY_STATIC_URL?.startsWith('http')
+        ? process.env.RAILWAY_STATIC_URL
+        : `https://${process.env.RAILWAY_STATIC_URL}` ||
+        'http://localhost:3000';
 
 const options = {
     definition: {
