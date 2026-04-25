@@ -1,3 +1,23 @@
+const BASE_URL = "https://mobilestore-production.up.railway.app";
+
+// ================= REGISTER API =================
+async function registerAPI(userData) {
+  const res = await fetch(`${BASE_URL}/api/auth/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userData)
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Registration failed");
+  }
+
+  return data;
+}
+
+// ================= HANDLE REGISTER =================
 async function handleRegister() {
   const firstName = document.getElementById('firstName').value.trim();
   const lastName  = document.getElementById('lastName').value.trim();
@@ -14,34 +34,40 @@ async function handleRegister() {
   }
 
   const userData = {
-    firstName: firstName,
-    lastName:  lastName,
-    email:     email,
-    password:  password,
-    role:      'client'
+    firstName,
+    lastName,
+    email,
+    password,
+    role: 'client'
   };
 
   try {
-    // Step 1: call the API — registers user in the real database
-    await registerAPI(userData);
+    // ✅ Call backend API (real registration)
+    const data = await registerAPI(userData);
 
-    // Step 2: also save to localStorage so admin dashboard can show them
-    const clients = JSON.parse(localStorage.getItem('adminClients') || '[]');
-    const alreadyExists = clients.some(c => c.email === email);
-    if (!alreadyExists) {
-      clients.push({ first: firstName, last: lastName, email: email, password: '•••••••••••••' });
-      localStorage.setItem('adminClients', JSON.stringify(clients));
-    }
-
-    // Step 3: save first name for the home page greeting
+    // ✅ Save first name locally for UI فقط
     localStorage.setItem('registeredFirstName', firstName);
 
+    // ✅ Optional: auto-login after register
+    if (data.token) {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('currentUser', data.user.email);
+      localStorage.setItem('role', data.user.role);
+    }
+
     document.getElementById('successModal').classList.add('active');
+
+    // ✅ Optional redirect after 1.5 sec
+    setTimeout(() => {
+      window.location.href = "home.html";
+    }, 1500);
+
   } catch (error) {
     document.getElementById('errorModal').classList.add('active');
   }
 }
 
+// ================= UI =================
 function closeModal(id) {
   document.getElementById(id).classList.remove('active');
 }
