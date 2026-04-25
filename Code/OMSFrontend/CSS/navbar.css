@@ -1,0 +1,152 @@
+/* =========================================
+   NAVBAR.CSS — Black Header & Navigation
+   ========================================= */
+
+.navbar {
+  background: var(--color-navbar);
+  color: var(--color-white);
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  height: 58px;
+  max-width: 100%;
+  gap: 0.5rem;
+}
+
+/* ---- Brand ---- */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: var(--color-white);
+  flex-shrink: 0;
+}
+
+.navbar-brand .brand-icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar-brand .brand-icon svg { width: 16px; height: 16px; fill: white; }
+
+.navbar-brand .brand-name {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
+
+/* ---- Nav Links ---- */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
+.nav-link {
+  color: #aaaaaa;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 4px;
+  transition: color var(--trans), background var(--trans);
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--color-white);
+  background: rgba(255,255,255,0.07);
+}
+
+.nav-link.active {
+  color: var(--color-primary);
+}
+
+/* ---- Cart Icon ---- */
+.nav-cart {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaaaaa;
+  text-decoration: none;
+  padding: 0.5rem 0.7rem;
+  border-radius: 4px;
+  transition: color var(--trans), background var(--trans);
+  margin-left: 0.3rem;
+}
+.nav-cart:hover {
+  color: var(--color-white);
+  background: rgba(255,255,255,0.07);
+}
+.nav-cart svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+
+/* ---- Top Bar (Admin / Supplier) ---- */
+.top-bar {
+  background: var(--color-navbar);
+  padding: 0 2rem;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.top-bar .top-bar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: white;
+  text-decoration: none;
+}
+.top-bar .top-bar-brand .brand-icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: flex; align-items: center; justify-content: center;
+}
+.top-bar .top-bar-brand .brand-icon svg { width: 14px; height: 14px; fill: white; }
+.top-bar .top-bar-brand span {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: white;
+}
+
+.top-bar .spacer { flex: 1; }
+
+.logout-link {
+  color: #aaa;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid #444;
+  border-radius: 4px;
+  transition: color var(--trans), border-color var(--trans);
+}
+.logout-link:hover { color: white; border-color: #888; }

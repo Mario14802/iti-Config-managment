@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Mobile Store</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/auth-guard.js"></script>
+</head>
+<body>
+
+  <!-- Modal: Invalid credentials (SIQ_10) -->
+  <div class="modal-overlay" id="errorModal">
+    <div class="modal-box">
+      
+      <h3>Login Failed</h3>
+      <p>Invalid mail or password.</p>
+      <button class="btn btn-primary" onclick="closeModal('errorModal')">Try Again</button>
+    </div>
+  </div>
+
+  <div class="auth-layout">
+
+    <!-- Left: Login Form -->
+    <form class="auth-left" onsubmit="event.preventDefault(); handleLogin();">
+      <h1>Login</h1>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="form-control" autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" autocomplete="current-password">
+      </div>
+      
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" class="form-control">
+          <option value="Client">Client</option>
+          <option value="Supplier">Supplier</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+    <!-- Right: Sign Up CTA -->
+    <div class="auth-right">
+      <p class="new-user-label">New User?</p>
+      <a href="register.html" class="btn btn-primary">Sign Up</a>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

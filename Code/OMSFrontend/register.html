@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — Mobile Store</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/auth-guard.js"></script>
+</head>
+<body>
+
+  <!-- Modal: Invalid data (SIQ_8) -->
+  <div class="modal-overlay" id="errorModal">
+    <div class="modal-box">
+      
+      <h3>Registration Failed</h3>
+      <p>Invalid data. Please check all fields and try again.</p>
+      <button class="btn btn-primary" onclick="closeModal('errorModal')">OK</button>
+    </div>
+  </div>
+
+  <!-- Modal: Success -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+      
+      <h3>Account Created!</h3>
+      <p>Your account has been registered successfully. You can now log in.</p>
+      <a href="login.html" class="btn btn-primary">Go to Login</a>
+    </div>
+  </div>
+
+  <div class="register-layout">
+    <form class="register-card" onsubmit="event.preventDefault(); handleRegister();">
+      <h1>Registration</h1>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" class="form-control" maxlength="20">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" class="form-control" maxlength="20">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control">
+        </div>
+      </div>
+
+      <div class="register-action-row">
+        <button type="submit" class="btn btn-primary">Create An Account</button>
+      </div>
+
+      <p class="register-card-footer">
+        Already have an account? <a href="login.html"><strong>Login</strong></a>
+      </p>
+    </form>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>
