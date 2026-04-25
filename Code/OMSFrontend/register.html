@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +12,13 @@
   <link rel="stylesheet" href="css/pages.css">
   <script src="js/auth-guard.js"></script>
 </head>
+
 <body>
 
   <!-- Modal: Invalid data (SIQ_8) -->
   <div class="modal-overlay" id="errorModal">
     <div class="modal-box">
-      
+
       <h3>Registration Failed</h3>
       <p>Invalid data. Please check all fields and try again.</p>
       <button class="btn btn-primary" onclick="closeModal('errorModal')">OK</button>
@@ -26,7 +28,7 @@
   <!-- Modal: Success -->
   <div class="modal-overlay" id="successModal">
     <div class="modal-box">
-      
+
       <h3>Account Created!</h3>
       <p>Your account has been registered successfully. You can now log in.</p>
       <a href="login.html" class="btn btn-primary">Go to Login</a>
@@ -69,4 +71,5 @@
   <script src="js/api.js"></script>
   <script src="js/register.js"></script>
 </body>
+
 </html>
