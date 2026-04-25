@@ -20,12 +20,12 @@ async function registerAPI(userData) {
 // ================= HANDLE REGISTER =================
 async function handleRegister() {
   const firstName = document.getElementById('firstName').value.trim();
-  const lastName  = document.getElementById('lastName').value.trim();
-  const email     = document.getElementById('email').value.trim();
-  const password  = document.getElementById('password').value;
+  const lastName = document.getElementById('lastName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
 
-  const isNameOk     = name => /^[a-zA-Z\s]+$/.test(name) && name.length >= 2 && name.length <= 20;
-  const isEmailOk    = email => email.length > 0 && email.includes('@') && !email.includes(' ');
+  const isNameOk = name => /^[a-zA-Z\s]+$/.test(name) && name.length >= 2 && name.length <= 20;
+  const isEmailOk = email => email.length > 0 && email.includes('@') && !email.includes(' ');
   const isPasswordOk = password => password.length >= 8 && /[A-Z]/.test(password);
 
   if (!isNameOk(firstName) || !isNameOk(lastName) || !isEmailOk(email) || !isPasswordOk(password)) {

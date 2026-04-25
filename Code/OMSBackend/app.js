@@ -1,6 +1,7 @@
 require('dns').setDefaultResultOrder('ipv4first');
 require('dotenv').config();
 
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -12,24 +13,29 @@ const swaggerSpec = require('./docs/swagger');
 
 const app = express();
 
-/* -------------------- PORT FIX (IMPORTANT) -------------------- */
+/* -------------------- PORT -------------------- */
 const PORT = process.env.PORT || 3000;
 
-/* -------------------- DB CONNECTION (SAFE) -------------------- */
+/* -------------------- DB -------------------- */
 connectDB()
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB connection error:", err));
+    .then(() => console.log("MongoDB connected"))
+    .catch(err => console.error("MongoDB connection error:", err));
 
 /* -------------------- MIDDLEWARE -------------------- */
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+
+/* =====================================================
+   FRONTEND SERVING (IMPORTANT FIX)
+   code/OMSfrontend contains your HTML/CSS/JS
+===================================================== */
+app.use(express.static(path.join(__dirname, 'OMSFrontend')));
 
 /* -------------------- SWAGGER -------------------- */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-/* -------------------- ROUTES -------------------- */
+/* -------------------- API ROUTES -------------------- */
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
@@ -42,17 +48,15 @@ app.use('/api/products', productRoutes);
 app.use('/api/carts', cartRoutes);
 app.use('/api/orders', orderRoutes);
 
-/* -------------------- TEST ROUTE -------------------- */
+/* -------------------- ROOT -------------------- */
 app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Welcome to Mobilestore API!'
-    });
+    res.sendFile(path.join(__dirname, 'OMSfrontend', 'index.html'));
 });
 
 /* -------------------- ERROR HANDLER -------------------- */
 app.use(errorHandler);
 
-/* -------------------- START SERVER (RAILWAY FIX) -------------------- */
+/* -------------------- START SERVER -------------------- */
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
 });

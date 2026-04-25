@@ -17,7 +17,7 @@ async function loginAPI(email, password) {
 }
 
 async function handleLogin() {
-  const email    = document.getElementById('email').value.trim();
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
 
   if (!email || !password) {

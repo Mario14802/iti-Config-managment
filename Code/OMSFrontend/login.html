@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +12,13 @@
   <link rel="stylesheet" href="css/pages.css">
   <script src="js/auth-guard.js"></script>
 </head>
+
 <body>
 
   <!-- Modal: Invalid credentials (SIQ_10) -->
   <div class="modal-overlay" id="errorModal">
     <div class="modal-box">
-      
+
       <h3>Login Failed</h3>
       <p>Invalid mail or password.</p>
       <button class="btn btn-primary" onclick="closeModal('errorModal')">Try Again</button>
@@ -38,7 +40,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" class="form-control" autocomplete="current-password">
       </div>
-      
+
       <div class="form-group">
         <label for="role">Role</label>
         <select id="role" class="form-control">
@@ -61,4 +63,5 @@
   <script src="js/api.js"></script>
   <script src="js/login.js"></script>
 </body>
+
 </html>
