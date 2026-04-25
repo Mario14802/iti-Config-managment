@@ -1,2 +1,3 @@
 # Ignore a folder
 node_modules/
+public/
