@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Product — Mobile Store</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/auth-guard.js"></script>
+</head>
+<body>
+
+  <!-- Modal: Invalid data (SIQ_32) -->
+  <div class="modal-overlay" id="invalidModal">
+    <div class="modal-box">
+      
+      <h3>Invalid Data</h3>
+      <p>Invalid data. Please check all fields and try again.</p>
+      <button class="btn btn-primary" onclick="closeModal('invalidModal')">OK</button>
+    </div>
+  </div>
+
+  <!-- Modal: Duplicate (SIQ_35) -->
+  <div class="modal-overlay" id="duplicateModal">
+    <div class="modal-box">
+      
+      <h3>Duplicate Product</h3>
+      <p>Product with these data already exists.</p>
+      <button class="btn btn-primary" onclick="closeModal('duplicateModal')">OK</button>
+    </div>
+  </div>
+
+  <!-- Modal: Success (SIQ_33) -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+      
+      <h3>Product Added</h3>
+      <p>Product has been added successfully.</p>
+      <a href="supplier-dashboard.html" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+
+
+    <main class="main-content">
+      <div class="create-page">
+        <p class="breadcrumb"><a href="supplier-dashboard.html">← Dashboard</a></p>
+        <h1>Create Product</h1>
+
+        <form onsubmit="event.preventDefault(); saveProduct();"><div class="form-grid">
+
+          <!-- Left Column -->
+          <div>
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" id="title" class="form-control" maxlength="100">
+            </div>
+            <div class="form-group">
+              <label for="price">Price</label>
+              <div class="input-suffix-wrap">
+                <input type="number" id="price" class="form-control" min="0" step="0.01">
+                <span class="input-suffix">EGP</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea id="description" class="form-control" maxlength="2000" rows="6"></textarea>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div>
+            <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" id="quantity" class="form-control" min="0">
+            </div>
+            <div class="form-group">
+              <label>Image</label>
+              <div class="img-upload-area" id="uploadArea">
+                <input type="file" id="imageInput" accept=".jpg,.jpeg,.png" onchange="handleImageUpload(event)">
+                
+                <!-- Remove Button (SIQ_31 follow-up) -->
+                <button type="button" id="removeImgBtn" class="remove-img-btn" onclick="removeImage(event)" style="display:none;">&times;</button>
+
+                <div id="fileLinkWrapper" style="display:none;">
+                   <span id="fileName">No file selected</span>
+                </div>
+                
+                <div id="uploadInstructions">
+                   <span id="uploadText">Click or drag to upload<br><small>JPG, JPEG, PNG</small></span>
+                </div>
+                
+                <img id="previewImg" src="" alt="Preview" style="display:none;">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Save Product</button></form>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/create-product.js"></script>
+</body>
+</html>

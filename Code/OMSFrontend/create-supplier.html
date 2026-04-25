@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Supplier — Mobile Store</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+  <!-- Modal: Invalid Data -->
+  <div class="modal-overlay" id="invalidModal">
+    <div class="modal-box">
+      <h3>Invalid Data</h3>
+      <p>Please check all fields and try again.</p>
+      <button class="btn btn-primary" onclick="closeModal('invalidModal')">OK</button>
+    </div>
+  </div>
+
+  <!-- Modal: Duplicate -->
+  <div class="modal-overlay" id="duplicateModal">
+    <div class="modal-box">
+      <h3>Duplicate Supplier</h3>
+      <p>Supplier with these data already exists.</p>
+      <button class="btn btn-primary" onclick="closeModal('duplicateModal')">OK</button>
+    </div>
+  </div>
+
+  <!-- Modal: Success -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+      <h3>Supplier Added</h3>
+      <p>Supplier added successfully.</p>
+      <a href="admin-dashboard.html" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+
+
+    <main class="main-content">
+      <div class="create-page">
+        <p class="breadcrumb"><a href="admin-dashboard.html">Dashboard</a></p>
+        <h1>Create Supplier</h1>
+
+        <form onsubmit="event.preventDefault(); saveSupplier();"><div class="form-grid">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control">
+          </div>
+        </div>
+
+        <div class="create-action-row">
+          <button type="submit" class="btn btn-primary">Save Supplier</button></form>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/create-supplier.js"></script>
+</body>
+</html>

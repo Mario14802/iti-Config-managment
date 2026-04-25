@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Mobile Store</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/auth-guard.js"></script>
+</head>
+<body>
+
+  <!-- Modal: Account deleted (SIQ_41) -->
+  <div class="modal-overlay" id="deletedModal">
+    <div class="modal-box">
+      
+      <h3>Account Deleted</h3>
+      <p>Account deleted successfully.</p>
+      <button class="btn btn-primary" onclick="closeModal('deletedModal')">OK</button>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <div class="top-bar">
+      <a href="admin-dashboard.html" class="top-bar-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5-4H7V4h10v12z"/></svg>
+        </div>
+        <span>Mobile Store</span>
+      </a>
+      <div class="spacer"></div>
+      <button onclick="handleLogout()" class="logout-link" style="background:none; border:none; cursor:pointer;">Logout</button>
+    </div>
+
+    <main class="main-content">
+      <div class="dashboard-page">
+        <h1>Admin Dashboard</h1>
+
+        <!-- Stats + Create button -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Total Clients</div>
+            <div class="stat-value" id="totalClients">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Suppliers</div>
+            <div class="stat-value" id="totalSuppliers">0</div>
+          </div>
+          <div class="spacer"></div>
+          <a href="create-supplier.html" class="btn btn-primary">+ Create Supplier</a>
+        </div>
+
+        <!-- Suppliers Table -->
+        <h2 class="admin-section-title">Suppliers Accounts</h2>
+        <div class="table-wrapper" id="suppliersWrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Supplier Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Phone Number</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody id="suppliersBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="noSuppliers" style="display:none;">No data available</div>
+
+        <!-- Clients Table -->
+        <h2 class="admin-section-title">Clients Accounts</h2>
+        <div class="table-wrapper" id="clientsWrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody id="clientsBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="noClients" style="display:none;">No data available</div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

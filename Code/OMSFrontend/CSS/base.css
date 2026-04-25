@@ -1,0 +1,77 @@
+/* =========================================
+   BASE.CSS — Reset, Typography, Colors
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-primary:       #f37021;
+  --color-primary-hover: #d95f15;
+  --color-primary-light: #fff3e8;
+  --color-black:   #0f0f0f;
+  --color-navbar:  #0f0f0f;
+  --color-white:   #ffffff;
+  --color-bg:      #ffffff;
+  --color-text:    #1c1c1c;
+  --color-muted:   #6b6b6b;
+  --color-border:  #e2e2e2;
+  --color-subtle:  #f6f6f6;
+  --color-card-bg: #fafafa;
+  --color-table-alt: #f8f8f8;
+  --color-success: #1e7e34;
+  --color-danger:  #c0392b;
+  --font-heading:  'Oswald', sans-serif;
+  --font-body:     'DM Sans', sans-serif;
+  --radius:    6px;
+  --radius-lg: 10px;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.08);
+  --shadow:    0 2px 10px rgba(0,0,0,0.10);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,0.13);
+  --trans: 0.2s ease;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-black);
+  line-height: 1.2;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.55rem; }
+h3 { font-size: 1.2rem; }
+
+p { margin-bottom: 0.4rem; }
+p:last-child { margin-bottom: 0; }
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--trans);
+}
+a:hover { color: var(--color-primary-hover); }
+
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+.text-muted  { color: var(--color-muted); }
+.text-orange { color: var(--color-primary); }
+.text-center { text-align: center; }
+.fw-bold     { font-weight: 600; }

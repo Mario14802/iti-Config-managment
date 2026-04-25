@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home — Mobile Store</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/auth-guard.js"></script>
+</head>
+<body>
+
+  <!-- Out of stock modal (SIQ_15) -->
+  <div class="modal-overlay" id="outOfStockModal">
+    <div class="modal-box">
+      
+      <h3>Out of Stock</h3>
+      <p>Out of stock.</p>
+      <button class="btn btn-primary" onclick="closeModal('outOfStockModal')">OK</button>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="home.html" class="navbar-brand">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5-4H7V4h10v12z"/></svg>
+          </div>
+          <span class="brand-name">Mobile Store</span>
+        </a>
+        <ul class="navbar-nav">
+          <li><a href="home.html" class="nav-link active">Home</a></li>
+          <li><a href="history.html" class="nav-link">History</a></li>
+          <li>
+            <a href="cart.html" class="nav-cart" title="My Cart">
+              <svg viewBox="0 0 24 24"><path d="M1 1h3l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L22 6H6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+              <span class="cart-badge" id="cartCount">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- User Hero Banner -->
+    <div class="home-hero">
+      <div class="home-hero-inner">
+        <div class="home-hero-avatar" id="userInitial">
+          J
+        </div>
+        <div class="home-hero-info">
+          <h2 id="userName">John Doe</h2>
+          <p>Welcome to Mobile Store</p>
+        </div>
+        <button onclick="handleLogout()" class="logout-btn">Logout</button>
+      </div>
+    </div>
+
+    <!-- Decorative Banner -->
+    <div class="hero-banner-img">
+      <div class="hero-text">
+        <h2>Latest <span>Mobiles</span> &amp; Accessories</h2>
+        <p>Top brands · Best prices · Fast delivery across Egypt</p>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <div class="container">
+
+        <!-- Mobiles -->
+        <div class="section">
+          <h2 class="section-title">Mobiles</h2>
+          <div class="products-grid" id="mobilesGrid"></div>
+        </div>
+
+        <!-- Accessories -->
+        <div class="section">
+          <h2 class="section-title">Accessories</h2>
+          <div class="products-grid" id="accessoriesGrid"></div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/home.js"></script>
+</body>
+</html>
