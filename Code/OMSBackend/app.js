@@ -30,7 +30,7 @@ app.use(express.json());
    FRONTEND SERVING (IMPORTANT FIX)
    code/OMSfrontend contains your HTML/CSS/JS
 ===================================================== */
-app.use(express.static(path.join(__dirname, 'OMSFrontend')));
+app.use(express.static(path.join(__dirname, '../OMSFrontend')));
 
 /* -------------------- SWAGGER -------------------- */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
@@ -50,7 +50,7 @@ app.use('/api/orders', orderRoutes);
 
 /* -------------------- ROOT -------------------- */
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'OMSfrontend', 'index.html'));
+    res.sendFile(path.join(__dirname, '../OMSFrontend', 'login.html'));
 });
 
 /* -------------------- ERROR HANDLER -------------------- */
