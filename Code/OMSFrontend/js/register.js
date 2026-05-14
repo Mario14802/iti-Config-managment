@@ -33,7 +33,7 @@ async function handleRegister() {
   const isPasswordOk = pw => pw.length >= 8 && /[A-Z]/.test(pw);
 
   if (!isNameOk(firstName) || !isNameOk(lastName) || !isEmailOk(email) || !isPasswordOk(password)) {
-    alert('invaild data');
+    document.getElementById('errorModal').classList.add('active');
     return;
   }
 
