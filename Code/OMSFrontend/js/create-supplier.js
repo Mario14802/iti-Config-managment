@@ -12,7 +12,7 @@ async function saveSupplier() {
   const password = document.getElementById('password').value;
 
   if (!fullName || !email || !phone || !/^\d{11}$/.test(phone) || !password) {
-    alert('Invaild data');
+    document.getElementById('invalidModal').classList.add('active');
     return;
   }
 
