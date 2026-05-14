@@ -42,8 +42,10 @@ async function saveProduct() {
   const description = document.getElementById('description').value.trim();
   const quantity = document.getElementById('quantity').value;
 
-  if (!title || !price || !quantity) {
-    document.getElementById('invalidModal').classList.add('active');
+  const titleHasSpecialChars = /[^a-zA-Z0-9\s]/.test(title);
+  const descHasSpecialChars = /[^a-zA-Z0-9\s]/.test(description);
+  if (!title || title.length < 10 || title.length > 100 || titleHasSpecialChars || !description || description.length < 10 || description.length > 800 || descHasSpecialChars || !price || Number(price) <= 0 || !quantity) {
+    alert('Invalid data');
     return;
   }
 
