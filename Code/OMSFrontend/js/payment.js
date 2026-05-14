@@ -78,11 +78,11 @@ async function placeOrder() {
       updateCartBadge();
       document.getElementById('successModal').classList.add('active');
     } else {
-      alert('Checkout failed: ' + (data.message || 'Unknown error'));
+      document.getElementById('invalidModal').classList.add('active');
     }
   } catch (error) {
     console.error(error);
-    alert('An error occurred during checkout.');
+    document.getElementById('invalidModal').classList.add('active');
   }
 }
 
