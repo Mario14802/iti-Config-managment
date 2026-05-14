@@ -33,7 +33,7 @@ function loadPaymentTotals() {
   const orderTotalEl = document.getElementById('orderTotal');
 
   if (subtotalEl) subtotalEl.textContent = total.toLocaleString() + ' EGP';
-  if (orderTotalEl) orderTotalEl.textContent = (total + 50).toLocaleString() + ' EGP';
+  if (orderTotalEl) orderTotalEl.textContent = (total).toLocaleString() + ' EGP';
 }
 
 async function placeOrder() {
