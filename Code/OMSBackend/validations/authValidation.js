@@ -26,7 +26,12 @@ const registerSchema = Joi.object({
         'string.empty': 'invalid data'
     }),
     role: Joi.string().valid('client', 'supplier', 'admin').optional(),
-    phone_number: Joi.string().optional()
+    phone_number: Joi.string()
+        .pattern(/^\d{10,15}$/)
+        .optional()
+        .messages({
+            'string.pattern.base': 'invalid data'
+        })
 });
 
 const loginSchema = Joi.object({

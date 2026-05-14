@@ -11,7 +11,7 @@ async function saveSupplier() {
   const phone = document.getElementById('phone').value.trim();
   const password = document.getElementById('password').value;
 
-  if (!fullName || !email || !phone || !password) {
+  if (!fullName || !email || !phone || !/^\d{11}$/.test(phone) || !password) {
     document.getElementById('invalidModal').classList.add('active');
     return;
   }

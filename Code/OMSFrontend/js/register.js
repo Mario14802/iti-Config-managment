@@ -28,12 +28,12 @@ async function handleRegister() {
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
 
-  const isNameOk = name => /^[a-zA-Z]+$/.test(name) && name.length >= 2 && name.length <= 20;
+  const isNameOk = name => /^[a-zA-Z]+$/.test(name);
   const isEmailOk = em => em.length > 0 && em.includes('@') && !em.includes(' ');
   const isPasswordOk = pw => pw.length >= 8 && /[A-Z]/.test(pw);
 
   if (!isNameOk(firstName) || !isNameOk(lastName) || !isEmailOk(email) || !isPasswordOk(password)) {
-    document.getElementById('errorModal').classList.add('active');
+    alert('invaild data');
     return;
   }
 
