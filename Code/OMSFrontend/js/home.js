@@ -55,9 +55,8 @@ async function renderProducts() {
   const supplierProducts = backendProducts;
 
   const mGrid = document.getElementById('mobilesGrid');
-  const aGrid = document.getElementById('accessoriesGrid');
 
-  if (!mGrid || !aGrid) return;
+  if (!mGrid) return;
 
   const createCard = p => {
     const stockStatus = (p.stock !== undefined) ? p.stock : (p.qty > 0 ? 1 : 0);
@@ -77,16 +76,7 @@ async function renderProducts() {
     `;
   };
 
-  const isAccessory = t =>
-    t.toLowerCase().includes('buds') ||
-    t.toLowerCase().includes('charger') ||
-    t.toLowerCase().includes('case');
-
-  const supMobiles = supplierProducts.filter(p => !isAccessory(p.title));
-  const supAccess = supplierProducts.filter(p => isAccessory(p.title));
-
-  mGrid.innerHTML = supMobiles.map(createCard).join('');
-  aGrid.innerHTML = supAccess.map(createCard).join('');
+  mGrid.innerHTML = supplierProducts.map(createCard).join('');
 
   document.querySelectorAll('.product-card[data-stock="0"]').forEach(card => {
     card.addEventListener('click', e => {
@@ -112,8 +102,8 @@ window.onload = async () => {
   await updateCartBadge();
   await renderProducts();
 
-  document.getElementById('mobilesGrid').addEventListener('click', handleProductClick);
-  document.getElementById('accessoriesGrid').addEventListener('click', handleProductClick);
+  const mobilesGrid = document.getElementById('mobilesGrid');
+  if (mobilesGrid) mobilesGrid.addEventListener('click', handleProductClick);
 };
 
 function handleProductClick(e) {
