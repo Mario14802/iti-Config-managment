@@ -1,32 +1,36 @@
-const BASE_URL = "https://mobilestore-production.up.railway.app";
-
-// ================= REGISTER API =================
 async function registerAPI(userData) {
-  const res = await fetch(`${BASE_URL}/api/auth/register`, {
+  const { ok, data } = await apiFetch('/api/auth/register', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(userData)
+    body: userData,
+    auth: false
   });
-
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.message || "Registration failed");
+  if (!ok) {
+    throw new Error(data.message || 'Registration failed');
   }
-
   return data;
 }
 
-// ================= HANDLE REGISTER =================
+async function loginAPI(email, password) {
+  const { ok, data } = await apiFetch('/api/auth/login', {
+    method: 'POST',
+    body: { email, password },
+    auth: false
+  });
+  if (!ok) {
+    throw new Error(data.message || 'Login failed');
+  }
+  return data;
+}
+
 async function handleRegister() {
   const firstName = document.getElementById('firstName').value.trim();
   const lastName = document.getElementById('lastName').value.trim();
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
 
-  const isNameOk = name => /^[a-zA-Z\s]+$/.test(name) && name.length >= 2 && name.length <= 20;
-  const isEmailOk = email => email.length > 0 && email.includes('@') && !email.includes(' ');
-  const isPasswordOk = password => password.length >= 8 && /[A-Z]/.test(password);
+  const isNameOk = name => /^[a-zA-Z]+$/.test(name) && name.length >= 2 && name.length <= 20;
+  const isEmailOk = em => em.length > 0 && em.includes('@') && !em.includes(' ');
+  const isPasswordOk = pw => pw.length >= 8 && /[A-Z]/.test(pw);
 
   if (!isNameOk(firstName) || !isNameOk(lastName) || !isEmailOk(email) || !isPasswordOk(password)) {
     document.getElementById('errorModal').classList.add('active');
@@ -42,32 +46,35 @@ async function handleRegister() {
   };
 
   try {
-    // ✅ Call backend API (real registration)
-    const data = await registerAPI(userData);
+    await registerAPI(userData);
+  } catch (error) {
+    document.getElementById('errorModal').classList.add('active');
+    return;
+  }
 
-    // ✅ Save first name locally for UI فقط
-    localStorage.setItem('registeredFirstName', firstName);
-
-    // ✅ Optional: auto-login after register
+  try {
+    const data = await loginAPI(email, password);
+    localStorage.setItem('currentUser', data.user.email);
+    localStorage.setItem('registeredFirstName', data.user.firstName);
+    localStorage.setItem('role', data.user.role);
+    localStorage.setItem('userId', data.user._id);
+    localStorage.removeItem('cartId');
     if (data.token) {
       localStorage.setItem('token', data.token);
-      localStorage.setItem('currentUser', data.user.email);
-      localStorage.setItem('role', data.user.role);
     }
-
     document.getElementById('successModal').classList.add('active');
-
-    // ✅ Optional redirect after 1.5 sec
     setTimeout(() => {
-      window.location.href = "home.html";
+      window.location.href = 'home.html';
     }, 1500);
-
   } catch (error) {
+    const msg = document.querySelector('#errorModal p');
+    if (msg) {
+      msg.textContent = 'Account created. Please sign in from the login page.';
+    }
     document.getElementById('errorModal').classList.add('active');
   }
 }
 
-// ================= UI =================
 function closeModal(id) {
   document.getElementById(id).classList.remove('active');
 }
