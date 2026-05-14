@@ -42,7 +42,7 @@ async function placeOrder() {
   const address = document.getElementById('address').value.trim();
 
   if (!phone || phone.length !== 11 || !city || !address) {
-    alert('invalid data');
+    document.getElementById('invalidModal').classList.add('active');
     return;
   }
 
