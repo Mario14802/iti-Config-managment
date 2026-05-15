@@ -52,22 +52,26 @@
         <form onsubmit="event.preventDefault(); saveSupplier();"><div class="form-grid">
           <div class="form-group">
             <label for="fullName">Full Name</label>
+            <p class="field-hint">First and last name in English letters. Each part must be at least 2 characters.</p>
             <input type="text" id="fullName" class="form-control">
           </div>
 
           <div class="form-group">
             <label for="email">Email</label>
+            <p class="field-hint">Valid email for supplier login (e.g. name@example.com).</p>
             <input type="email" id="email" class="form-control">
           </div>
 
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" class="form-control">
+            <p class="field-hint">Egyptian mobile number: exactly 11 digits (numbers only).</p>
+            <input type="tel" id="phone" class="form-control phone-numeric" maxlength="11" inputmode="numeric" pattern="[0-9]*" autocomplete="tel">
           </div>
 
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" class="form-control">
+            <p class="field-hint">At least 8 characters with one uppercase letter (A–Z).</p>
+            <input type="password" id="password" class="form-control" minlength="8">
           </div>
         </div>
 
@@ -79,6 +83,7 @@
     </main>
   </div>
 
+  <script src="js/phone-input.js"></script>
   <script src="js/create-supplier.js"></script>
 </body>
 </html>

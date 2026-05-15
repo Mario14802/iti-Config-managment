@@ -16,7 +16,7 @@ exports.register = async (userData) => {
     const user = new User({
         firstName: userData.firstName,
         lastName: userData.lastName,
-        email: userData.email,
+        email: userData.email.trim().toLowerCase(),
         password: hashedPassword,
         role: userData.role || 'client',
         phone_number: userData.phone_number
@@ -26,7 +26,7 @@ exports.register = async (userData) => {
 };
 
 exports.login = async (email, password) => {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email.trim() }).collation({ locale: 'en', strength: 2 });
     if (!user) {
         throw new Error('invalid mail or password');
     }

@@ -41,7 +41,7 @@ async function placeOrder() {
   const city = document.getElementById('city').value;
   const address = document.getElementById('address').value.trim();
 
-  if (!phone || phone.length !== 11 || !city || !address || address.length < 10) {
+  if (!/^\d{11}$/.test(phone) || !city || address.length < 10 || address.length > 200) {
     document.getElementById('invalidModal').classList.add('active');
     return;
   }
