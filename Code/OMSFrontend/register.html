@@ -43,19 +43,23 @@
       <div class="form-grid">
         <div class="form-group">
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" class="form-control">
+          <p class="field-hint">2–20 characters. Letters only (A–Z).</p>
+          <input type="text" id="firstName" class="form-control" minlength="2" maxlength="20">
         </div>
         <div class="form-group">
           <label for="email">Email</label>
+          <p class="field-hint">Valid email for login (e.g. name@example.com). No spaces.</p>
           <input type="email" id="email" class="form-control">
         </div>
         <div class="form-group">
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" class="form-control">
+          <p class="field-hint">2–20 characters. Letters only (A–Z).</p>
+          <input type="text" id="lastName" class="form-control" minlength="2" maxlength="20">
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" class="form-control">
+          <p class="field-hint">At least 8 characters with one uppercase letter (A–Z).</p>
+          <input type="password" id="password" class="form-control" minlength="8">
         </div>
       </div>
 

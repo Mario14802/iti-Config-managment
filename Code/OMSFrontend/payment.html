@@ -68,10 +68,12 @@
           <div>
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" class="form-control" maxlength="11">
+              <p class="field-hint">Enter your mobile number: exactly 11 digits (numbers only).</p>
+              <input type="tel" id="phone" class="form-control phone-numeric" maxlength="11" inputmode="numeric" pattern="[0-9]*" autocomplete="tel">
             </div>
             <div class="form-group">
               <label for="city">City</label>
+              <p class="field-hint">Choose the city where your order should be delivered.</p>
               <select id="city" class="form-control">
                 <option value="">Select a city</option>
                 <option>Cairo</option>
@@ -81,7 +83,8 @@
             </div>
             <div class="form-group">
               <label for="address">Full Address</label>
-              <textarea id="address" class="form-control" rows="4"></textarea>
+              <p class="field-hint">Street, building, floor, and area. Use 10–200 characters.</p>
+              <textarea id="address" class="form-control" rows="4" minlength="10" maxlength="200"></textarea>
             </div>
           </div>
 
@@ -111,6 +114,7 @@
     </main>
   </div>
 
+  <script src="js/phone-input.js"></script>
   <script src="js/payment.js"></script>
 </body>
 </html>

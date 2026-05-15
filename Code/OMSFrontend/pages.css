@@ -176,8 +176,13 @@
   margin-top: 1.5rem;
 }
 
+.product-detail-info .add-to-cart-qty {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
 .product-detail-info .add-to-cart-row {
-  margin-top: 2rem;
+  margin-top: 0.75rem;
 }
 
 .product-detail-info .add-to-cart-row .btn-primary {
