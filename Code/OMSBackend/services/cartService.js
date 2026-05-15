@@ -57,6 +57,10 @@ exports.checkout = async (cartId, orderDetails) => {
         for (const item of cartItems) {
             const product = await Product.findById(item.product_id);
             if (product) {
+                if (typeof product.quantity !== 'number') {
+                    // For older products, set their initial quantity before deduction
+                    product.quantity = product.stock_quantity;
+                }
                 product.stock_quantity -= item.quantity;
                 if (product.stock_quantity <= 0) {
                     product.stock_quantity = 0;
