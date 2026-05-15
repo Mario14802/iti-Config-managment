@@ -63,7 +63,10 @@ function renderTable() {
 
   let profit = 0;
   const rows = productsList.map(p => {
-    profit += p.price * (p.stock_quantity || 0);
+    const initialQty = typeof p.quantity === 'number' ? p.quantity : p.stock_quantity || 0;
+    const currentStock = p.stock_quantity || 0;
+    const soldCount = Math.max(0, initialQty - currentStock);
+    profit += p.price * soldCount;
     return `
       <tr>
         <td>

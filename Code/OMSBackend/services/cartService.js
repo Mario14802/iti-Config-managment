@@ -30,8 +30,17 @@ exports.removeItemFromCart = async (cartItemId) => {
 exports.checkout = async (cartId, orderDetails) => {
     const Order = require('../models/Order');
     const OrderItem = require('../models/OrderItem');
+    const Product = require('../models/Product');
     const cartItems = await CartItem.find({ cart_id: cartId });
     
+    // Check stock
+    for (const item of cartItems) {
+        const product = await Product.findById(item.product_id);
+        if (product && product.stock_quantity < item.quantity) {
+            throw new Error(`Not enough stock for one of the products`);
+        }
+    }
+
     const order = new Order({ ...orderDetails, user_id: orderDetails.user_id });
     const savedOrder = await order.save();
     
@@ -43,6 +52,19 @@ exports.checkout = async (cartId, orderDetails) => {
             unit_price: 0 // Simplification
         }));
         await OrderItem.insertMany(orderItems);
+        
+        // Deduct stock
+        for (const item of cartItems) {
+            const product = await Product.findById(item.product_id);
+            if (product) {
+                product.stock_quantity -= item.quantity;
+                if (product.stock_quantity <= 0) {
+                    product.stock_quantity = 0;
+                    product.stock_status = 'out_of_stock';
+                }
+                await product.save();
+            }
+        }
     }
     
     // Clear cart
