@@ -1,5 +1,6 @@
 const Cart = require('../models/Cart');
 const CartItem = require('../models/CartItem');
+const Product = require('../models/Product');
 
 exports.getCartByUser = async (userId) => {
     const cart = await Cart.findOne({ user_id: userId });
@@ -15,6 +16,27 @@ exports.createCart = async (userId) => {
 };
 
 exports.addItemToCart = async (cartId, itemData) => {
+    const product = await Product.findById(itemData.product_id);
+    if (!product) {
+        throw new Error('Product not found');
+    }
+
+    const stock = Number(product.stock_quantity) || 0;
+    const existing = await CartItem.findOne({
+        cart_id: cartId,
+        product_id: itemData.product_id
+    });
+
+    const newQty = (existing ? existing.quantity : 0) + itemData.quantity;
+    if (newQty > stock) {
+        throw new Error('Not enough stock');
+    }
+
+    if (existing) {
+        existing.quantity = newQty;
+        return await existing.save();
+    }
+
     const cartItem = new CartItem({
         cart_id: cartId,
         product_id: itemData.product_id,
@@ -30,48 +52,60 @@ exports.removeItemFromCart = async (cartItemId) => {
 exports.checkout = async (cartId, orderDetails) => {
     const Order = require('../models/Order');
     const OrderItem = require('../models/OrderItem');
-    const Product = require('../models/Product');
+
+    const cart = await Cart.findById(cartId);
+    if (!cart) {
+        throw new Error('Cart not found');
+    }
+    if (String(cart.user_id) !== String(orderDetails.user_id)) {
+        throw new Error('Cart not found');
+    }
+
     const cartItems = await CartItem.find({ cart_id: cartId });
-    
-    // Check stock
+    if (cartItems.length === 0) {
+        throw new Error('Cart is empty');
+    }
+
+    const qtyByProduct = new Map();
     for (const item of cartItems) {
-        const product = await Product.findById(item.product_id);
-        if (product && product.stock_quantity < item.quantity) {
-            throw new Error(`Not enough stock for one of the products`);
+        const productId = String(item.product_id);
+        qtyByProduct.set(productId, (qtyByProduct.get(productId) || 0) + item.quantity);
+    }
+
+    for (const [productId, qty] of qtyByProduct) {
+        const product = await Product.findById(productId);
+        if (!product) {
+            throw new Error('Product not found');
+        }
+        const stock = Number(product.stock_quantity) || 0;
+        if (stock < qty) {
+            throw new Error('Not enough stock for one of the products');
         }
     }
 
     const order = new Order({ ...orderDetails, user_id: orderDetails.user_id });
     const savedOrder = await order.save();
-    
-    if (cartItems.length > 0) {
-        const orderItems = cartItems.map(item => ({
+
+    const orderItems = [];
+    for (const [productId, qty] of qtyByProduct) {
+        const product = await Product.findById(productId);
+        const stock = Number(product.stock_quantity) || 0;
+
+        orderItems.push({
             order_id: savedOrder._id,
-            product_id: item.product_id,
-            quantity: item.quantity,
-            unit_price: 0 // Simplification
-        }));
-        await OrderItem.insertMany(orderItems);
-        
-        // Deduct stock
-        for (const item of cartItems) {
-            const product = await Product.findById(item.product_id);
-            if (product) {
-                if (typeof product.quantity !== 'number') {
-                    // For older products, set their initial quantity before deduction
-                    product.quantity = product.stock_quantity;
-                }
-                product.stock_quantity -= item.quantity;
-                if (product.stock_quantity <= 0) {
-                    product.stock_quantity = 0;
-                    product.stock_status = 'out_of_stock';
-                }
-                await product.save();
-            }
+            product_id: product._id,
+            quantity: qty,
+            unit_price: product.price
+        });
+
+        product.stock_quantity = Math.max(0, stock - qty);
+        if (product.stock_quantity <= 0) {
+            product.stock_status = 'out_of_stock';
         }
+        await product.save();
     }
-    
-    // Clear cart
+
+    await OrderItem.insertMany(orderItems);
     await CartItem.deleteMany({ cart_id: cartId });
     return savedOrder;
 };

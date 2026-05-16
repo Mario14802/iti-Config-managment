@@ -48,13 +48,21 @@ async function placeOrder() {
 
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
-  const cartId = localStorage.getItem('cartId');
   const total = parseFloat(localStorage.getItem('checkoutTotal')) || 0;
 
-  if (!userId || !token || !cartId) {
+  if (!userId || !token) {
     window.location.replace('login.html');
     return;
   }
+
+  const cartLookup = await apiFetch(`/api/carts/user/${userId}`);
+  if (!cartLookup.ok || !cartLookup.data?.cart?._id || !(cartLookup.data.items || []).length) {
+    document.getElementById('invalidModal').classList.add('active');
+    return;
+  }
+
+  const cartId = cartLookup.data.cart._id;
+  localStorage.setItem('cartId', cartId);
 
   const name = localStorage.getItem('registeredFirstName') || 'Customer';
 
